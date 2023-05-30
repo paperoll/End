@@ -1,0 +1,28 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "me.ht9.end.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "accessors.IEntityRenderer",
+    "accessors.IGui",
+    "accessors.IMinecraft",
+    "mixins.MixinEntity",
+    "mixins.MixinEntityClientPlayerMP",
+    "mixins.MixinEntityPlayerSP",
+    "mixins.MixinEntityRenderer",
+    "mixins.MixinGuiGameOver",
+    "mixins.MixinGuiIngame",
+    "mixins.MixinGuiScreen",
+    "mixins.MixinItemRenderer",
+    "mixins.MixinLoginThread",
+    "mixins.MixinPlayerControllerMP",
+    "mixins.MixinMinecraft",
+    "mixins.MixinNetworkManager",
+    "mixins.MixinThreadDownloadResources"
+  ],
+  "injectors": {
+    "maxShiftBy": 5,
+    "defaultRequire": 1
+  }
+}

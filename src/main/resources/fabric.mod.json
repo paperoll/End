@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "end",
+  "version": "${version}",
+
+  "name": "End",
+  "description": "The end.",
+  "authors": [
+    "ht9"
+  ],
+  "contact": {
+    "homepage": "29#0111",
+    "sources": "amogus"
+  },
+
+  "license": "MPL-2.0",
+
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "me.ht9.end.End"
+    ]
+  },
+  "mixins": [
+    "end.mixins.json"
+  ],
+
+  "depends": {
+    "minecraft": "1.0.0-beta.7.3"
+  }
+}
