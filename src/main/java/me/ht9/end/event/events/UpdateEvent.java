@@ -7,14 +7,16 @@ public final class UpdateEvent extends Event
     private final Stage stage;
     private double packetX;
     private double packetY;
+    private double stance;
     private double packetZ;
     private float yaw;
     private float pitch;
     private boolean onGround;
 
-    public UpdateEvent(double packetX, double packetY, double packetZ, float yaw, float pitch, boolean onGround, Stage stage) {
+    public UpdateEvent(double packetX, double packetY, double stance, double packetZ, float yaw, float pitch, boolean onGround, Stage stage) {
         this.packetX = packetX;
         this.packetY = packetY;
+        this.stance = stance;
         this.packetZ = packetZ;
         this.yaw = yaw;
         this.pitch = pitch;
@@ -36,6 +38,14 @@ public final class UpdateEvent extends Event
 
     public void setPacketY(double packetY) {
         this.packetY = packetY;
+    }
+
+    public double getStance() {
+        return this.stance;
+    }
+
+    public void setStance(double stance) {
+        this.stance = stance;
     }
 
     public double getPacketZ() {

@@ -9,6 +9,7 @@ import me.ht9.end.feature.module.annotation.Aliases;
 import me.ht9.end.feature.module.annotation.Description;
 import me.ht9.end.feature.module.setting.Setting;
 import me.ht9.end.mixin.accessors.IEntityRenderer;
+import me.ht9.end.render.Render3d;
 import me.ht9.end.shader.Framebuffer;
 import me.ht9.end.shader.GlStateManager;
 import me.ht9.end.shader.renderer.OpenGlHelper;
@@ -49,6 +50,8 @@ public final class ESP extends Module
     private final Setting<Boolean> particles = new Setting<>("Particles", true);
     private final Setting<Boolean> hud = new Setting<>("Hud", true);
     private final Setting<Boolean> guis = new Setting<>("GUIs", true);
+
+    private final ArrayList<Integer[]> positions = new ArrayList<>();
 
     private boolean listenForLayers = false;
     private boolean cancelGuiBackground = false;
@@ -219,61 +222,66 @@ public final class ESP extends Module
     {
         for (Object entity : mc.theWorld.loadedEntityList)
         {
-            if (entity instanceof EntityItem && items.getValue())
-            {
-                if (mc.thePlayer.getDistanceToEntity((Entity) entity) <= this.itemsRange.getValue())
-                {
-                    this.renderEntityStatic((Entity) entity, partialTicks);
-                }
-            } else if (entity instanceof EntityPlayer && this.players.getValue() && (!entity.equals(mc.thePlayer)))
-            {
-                this.listenForLayers = true;
-                this.renderingEntity = true;
-                this.renderEntityStatic((Entity) entity, partialTicks);
-                this.listenForLayers = false;
-                this.renderingEntity = false;
-            } else if (entity instanceof EntitySlime)
-            {
-                this.renderEntityStatic((Entity) entity, partialTicks);
-            } else if (entity instanceof EntitySlimeFX)
-            {
-                this.renderEntityStatic((Entity) entity, partialTicks);
-            } else if (entity instanceof EntityCow)
-            {
-                this.renderEntityStatic((Entity) entity, partialTicks);
-            } else if (entity instanceof EntityPig)
-            {
-                this.renderEntityStatic((Entity) entity, partialTicks);
-            } else if (entity instanceof EntitySheep)
-            {
-                this.renderEntityStatic((Entity) entity, partialTicks);
-            } else if (entity instanceof EntityChicken)
-            {
-                this.renderEntityStatic((Entity) entity, partialTicks);
-            } else if (entity instanceof EntitySkeleton)
-            {
-                this.renderEntityStatic((Entity) entity, partialTicks);
-            } else if (entity instanceof EntityZombie)
-            {
-                this.renderEntityStatic((Entity) entity, partialTicks);
-            } else if (entity instanceof EntityCreeper)
-            {
-                this.renderEntityStatic((Entity) entity, partialTicks);
-            } else if (entity instanceof EntitySpider)
-            {
-                this.renderEntityStatic((Entity) entity, partialTicks);
-            } else if (entity instanceof EntityGhast)
-            {
-                this.renderEntityStatic((Entity) entity, partialTicks);
-            } else if (entity instanceof EntityMinecart)
+            if (!entity.equals(mc.thePlayer))
             {
                 this.renderEntityStatic((Entity) entity, partialTicks);
             }
+//            if (entity instanceof EntityItem && items.getValue())
+//            {
+//                if (mc.thePlayer.getDistanceToEntity((Entity) entity) <= this.itemsRange.getValue())
+//                {
+//                    this.renderEntityStatic((Entity) entity, partialTicks);
+//                }
+//            } else if (entity instanceof EntityPlayer && this.players.getValue() && (!entity.equals(mc.thePlayer)))
+//            {
+//                this.listenForLayers = true;
+//                this.renderingEntity = true;
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//                this.listenForLayers = false;
+//                this.renderingEntity = false;
+//            } else if (entity instanceof EntitySlime)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            } else if (entity instanceof EntitySlimeFX)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            } else if (entity instanceof EntityCow)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            } else if (entity instanceof EntityPig)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            } else if (entity instanceof EntitySheep)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            } else if (entity instanceof EntityChicken)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            } else if (entity instanceof EntitySkeleton)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            } else if (entity instanceof EntityZombie)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            } else if (entity instanceof EntityCreeper)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            } else if (entity instanceof EntitySpider)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            } else if (entity instanceof EntityGhast)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            } else if (entity instanceof EntityMinecart)
+//            {
+//                this.renderEntityStatic((Entity) entity, partialTicks);
+//            }
         }
     }
 
     private void renderStorages(float partialTicks)
     {
+        this.positions.clear();
         ((IEntityRenderer) mc.entityRenderer).invokeSetupCameraTransform(partialTicks, 0);
         // cme
         List<TileEntity> dup = new ArrayList<>(mc.theWorld.loadedTileEntityList);
@@ -281,12 +289,24 @@ public final class ESP extends Module
         {
             if (entity instanceof TileEntity)
             {
+                TileEntityRenderer.instance.renderTileEntity(entity, partialTicks);
                 double distance = mc.thePlayer.getDistanceSq(entity.xCoord, entity.yCoord, entity.zCoord);
-                if (Math.sqrt(distance) <= this.storageRange.getValue())
+                if (entity instanceof TileEntityChest)
                 {
-                    GlStateManager.disableDepth();
-                    TileEntityRenderer.instance.renderTileEntity(entity, partialTicks);
-                    GlStateManager.enableDepth();
+                    this.positions.add(new Integer[]{ entity.xCoord, entity.yCoord, entity.zCoord });
+                    for (Integer[] pos : positions)
+                    {
+                        Render3d.drawShaderBox(
+                                AxisAlignedBB.method_87(
+                                        pos[0] - RenderManager.renderPosX,
+                                        pos[1] - RenderManager.renderPosY,
+                                        pos[2] - RenderManager.renderPosZ,
+                                        pos[0] + 1 - RenderManager.renderPosX,
+                                        pos[1] + 1 - RenderManager.renderPosY,
+                                        pos[2] + 1 - RenderManager.renderPosZ
+                                )
+                        );
+                    }
                 }
             }
         }

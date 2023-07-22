@@ -77,18 +77,18 @@ void main()
         float value = dist + (time / 3.0);
         value = mod(value, 1.0);
 
-        if (value < 0.75)
-        {
-            value = 1.0 - value;
-        }
-        if (value < 0.50)
-        {
-            value += 0.5;
-        }
-        if (value < 0.75)
-        {
-            value = (1.0 - value) + 0.5;
-        }
+//        if (value < 0.75)
+//        {
+//            value = 1.0 - value;
+//        }
+//        if (value < 0.50)
+//        {
+//            value += 0.5;
+//        }
+//        if (value < 0.75)
+//        {
+//            value = (1.0 - value) + 0.5;
+//        }
 
         float hue = value - 0.25;
 

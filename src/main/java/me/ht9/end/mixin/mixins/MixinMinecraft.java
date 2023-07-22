@@ -5,7 +5,6 @@ import me.ht9.end.event.events.InputEvent;
 import me.ht9.end.feature.module.render.esp.OutlineShader;
 import me.ht9.end.mixin.accessors.IMinecraft;
 import me.ht9.end.shader.Framebuffer;
-import me.ht9.end.shader.GlStateManager;
 import me.ht9.end.shader.renderer.OpenGlHelper;
 import me.ht9.end.util.Globals;
 import me.ht9.end.util.RenderUtils;
@@ -80,24 +79,43 @@ public abstract class MixinMinecraft implements Globals
 
     @Shadow public abstract void setIngameFocus();
 
-    @Inject(method = "startGame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;getMinecraftDir()Ljava/io/File;"))
+    @Inject(method = "startGame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;getMinecraftDir()Ljava/io/File;", shift = At.Shift.BEFORE))
     public void injectFramebuffer(CallbackInfo ci)
     {
         OpenGlHelper.initializeTextures();
         RenderUtils.framebuffer = new Framebuffer(mc.displayWidth, mc.displayHeight, true);
         RenderUtils.framebuffer.setFramebufferColor(0.0F, 0.0F, 0.0F, 0.0F);
     }
+    @Inject(method = "loadScreen", at = @At(value = "HEAD"))
+    public void a(CallbackInfo ci)
+    {
+        ScaledResolution scaledresolution = new ScaledResolution(this.gameSettings, mc.displayWidth, mc.displayHeight);
+        int i = scaledresolution.scaleFactor;
+        RenderUtils.framebuffer = new Framebuffer(scaledresolution.getScaledWidth() * i, scaledresolution.getScaledHeight() * i, true);
+        RenderUtils.framebuffer.bindFramebuffer(false);
+    }
 
-    @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;checkGLError(Ljava/lang/String;)V", ordinal = 0))
+    @Inject(method = "loadScreen", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL11;glDisable(I)V", ordinal = 3))
+    public void aa(CallbackInfo ci)
+    {
+        ScaledResolution scaledresolution = new ScaledResolution(this.gameSettings, mc.displayWidth, mc.displayHeight);
+        int i = scaledresolution.scaleFactor;
+        RenderUtils.framebuffer.unbindFramebuffer();
+        RenderUtils.framebuffer.framebufferRender(scaledresolution.getScaledWidth() * i, scaledresolution.getScaledHeight() * i);
+    }
+
+    @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;checkGLError(Ljava/lang/String;)V", ordinal = 0, shift = At.Shift.AFTER))
     public void bindFramebuffer(CallbackInfo ci)
     {
         RenderUtils.framebuffer.bindFramebuffer(true);
     }
 
-    @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;checkGLError(Ljava/lang/String;)V", ordinal = 1))
+    @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;checkGLError(Ljava/lang/String;)V", ordinal = 1, shift = At.Shift.AFTER))
     public void unbindFramebuffer(CallbackInfo ci)
     {
         RenderUtils.framebuffer.unbindFramebuffer();
+        GL11.glPopMatrix();
+        GL11.glPushMatrix();
         RenderUtils.framebuffer.framebufferRender(mc.displayWidth, mc.displayHeight);
     }
 
@@ -105,7 +123,7 @@ public abstract class MixinMinecraft implements Globals
     public void updateFramebuffer(CallbackInfo ci)
     {
         this.updateFramebufferSize();
-        ((IMinecraft) mc).setSession(new Session("Handbooked", "1"));
+        //((IMinecraft) mc).setSession(new Session("Handbooked", "1"));
     }
 
 

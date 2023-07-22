@@ -1,19 +1,16 @@
 package me.ht9.end.shader.renderer;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.src.GameSettings;
 import org.lwjgl.opengl.*;
 
 public class OpenGlHelper
 {
     public static boolean openGL21;
-
     /**
      * An OpenGL constant corresponding to GL_TEXTURE0, used when setting data pertaining to auxiliary OpenGL texture
      * units.
      */
     public static int defaultTexUnit;
-
     /**
      * An OpenGL constant corresponding to GL_TEXTURE1, used when setting data pertaining to auxiliary OpenGL texture
      * units.
@@ -21,15 +18,16 @@ public class OpenGlHelper
     public static int lightmapTexUnit;
     public static boolean anisotropicFilteringSupported;
     public static int anisotropicFilteringMax;
-
-    /**
-     * True if the renderer supports multitextures and the OpenGL version != 1.3
-     */
+    /** True if the renderer supports multitextures and the OpenGL version != 1.3 */
     private static boolean useMultitextureARB;
     private static boolean openGL14;
     public static boolean framebufferSupported;
     public static boolean shadersSupported;
     private static final String __OBFID = "CL_00001179";
+
+    /* Stores the last values sent into setLightmapTextureCoords */
+    public static float lastBrightnessX = 0.0f;
+    public static float lastBrightnessY = 0.0f;
 
     /**
      * Initializes the texture constants to be used when rendering lightmap values
@@ -53,7 +51,6 @@ public class OpenGlHelper
         framebufferSupported = openGL14 && GLContext.getCapabilities().GL_ARB_framebuffer_object;
         anisotropicFilteringSupported = GLContext.getCapabilities().GL_EXT_texture_filter_anisotropic;
         anisotropicFilteringMax = (int)(anisotropicFilteringSupported ? GL11.glGetFloat(34047) : 0.0F);
-
         //GameSettings.Options.ANISOTROPIC_FILTERING.setValueMax((float)anisotropicFilteringMax);
         openGL21 = GLContext.getCapabilities().OpenGL21;
         shadersSupported = framebufferSupported && openGL21;
@@ -101,6 +98,12 @@ public class OpenGlHelper
         else
         {
             GL13.glMultiTexCoord2f(par0, par1, par2);
+        }
+
+        if (par0 == lightmapTexUnit)
+        {
+            lastBrightnessX = par1;
+            lastBrightnessY = par2;
         }
     }
 

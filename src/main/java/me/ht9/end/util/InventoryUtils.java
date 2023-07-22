@@ -33,4 +33,33 @@ public final class InventoryUtils implements Globals
         }
         return -1;
     }
+
+    public static int getOpenSlotInChest(int slot)
+    {
+        int openslot = -1;
+        for (int i = 0; i < slot; i++)
+        {
+            if (mc.thePlayer.inventorySlots.method_2084(i).method_472() == null)
+            {
+                openslot = i;
+                return openslot;
+            }
+        }
+        return openslot;
+    }
+
+    public static int getOpenSlotInInventory(int slot)
+    {
+        int openSlot = -1;
+        for (int i = mc.thePlayer.inventorySlots.slots.size() - 1; i >= slot; i--)
+        {
+
+            if (mc.thePlayer.inventorySlots.method_2084(i).method_472() == null)
+            {
+                openSlot = i;
+                return openSlot;
+            }
+        }
+        return openSlot;
+    }
 }

@@ -6,19 +6,22 @@
   "mixins": [
     "accessors.IEntityRenderer",
     "accessors.IGui",
+    "accessors.IGuiChest",
     "accessors.IMinecraft",
+    "accessors.IPacket10Flying",
     "mixins.MixinEntity",
     "mixins.MixinEntityClientPlayerMP",
     "mixins.MixinEntityPlayerSP",
     "mixins.MixinEntityRenderer",
+    "mixins.MixinGuiContainer",
     "mixins.MixinGuiGameOver",
     "mixins.MixinGuiIngame",
     "mixins.MixinGuiScreen",
     "mixins.MixinItemRenderer",
     "mixins.MixinLoginThread",
-    "mixins.MixinPlayerControllerMP",
     "mixins.MixinMinecraft",
     "mixins.MixinNetworkManager",
+    "mixins.MixinPlayerControllerMP",
     "mixins.MixinThreadDownloadResources"
   ],
   "injectors": {

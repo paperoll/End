@@ -39,7 +39,7 @@ public final class MixinPlayerControllerMP
     {
         BlockDamageProgressEvent event = new BlockDamageProgressEvent(instance.blockStrength(entityPlayer));
         End.bus().post(event);
-        System.out.println(event.getProgress());
+        //return 1;
         if (event.cancelled())
         {
             return event.getProgress();
