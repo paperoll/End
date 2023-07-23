@@ -4,6 +4,7 @@ import me.ht9.end.event.factory.EventFactory;
 import me.ht9.end.feature.module.binding.Bind;
 import me.ht9.end.feature.module.client.hud.HUD;
 import me.ht9.end.feature.module.exploit.crasher.Crasher;
+import me.ht9.end.feature.module.exploit.nofall.NoFall;
 import me.ht9.end.feature.module.misc.antiaim.AntiAim;
 import me.ht9.end.feature.module.misc.norotate.NoRotate;
 import me.ht9.end.feature.module.movement.speed.Speed;
@@ -26,6 +27,7 @@ public final class  Core implements Globals
         Registries.getInstance().init();
         RotationUtils.Manager.init();
         ESP.getInstance().enable();
+        NoFall.getInstance().enable();
         NoRotate.getInstance().enable();
         TrueSight.getInstance().enable();
         HUD.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_G, Bind.BindType.KEYBOARD);

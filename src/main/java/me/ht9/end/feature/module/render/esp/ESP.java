@@ -63,12 +63,6 @@ public final class ESP extends Module
     {
     }
 
-    @Override
-    public void onUpdate(UpdateEvent event)
-    {
-        event.setOnGround(true);
-    }
-
     @SubscribeEvent
     public void onRenderWorldPass(RenderWorldPassEvent event)
     {

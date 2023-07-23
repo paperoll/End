@@ -7,6 +7,7 @@ import me.ht9.end.feature.module.binding.Bind;
 import me.ht9.end.feature.module.client.clickgui.ClickGui;
 import me.ht9.end.feature.module.client.hud.HUD;
 import me.ht9.end.feature.module.exploit.crasher.Crasher;
+import me.ht9.end.feature.module.exploit.nofall.NoFall;
 import me.ht9.end.feature.module.misc.antiaim.AntiAim;
 import me.ht9.end.feature.module.misc.norotate.NoRotate;
 import me.ht9.end.feature.module.movement.speed.Speed;
@@ -41,6 +42,7 @@ public final class Registries
 
         // Misc
         this.modules.registerFeature(AntiAim.getInstance());
+        this.modules.registerFeature(NoFall.getInstance());
         this.modules.registerFeature(NoRotate.getInstance());
         // Exploit
         this.modules.registerFeature(Crasher.getInstance());
