@@ -8,7 +8,7 @@ import me.ht9.end.util.NetworkUtils;
 import me.ht9.end.util.Timer;
 import net.minecraft.src.Packet19EntityAction;
 
-@Description(value = "Speed.")
+@Description(value = "Move faster.")
 public class Speed extends Module
 {
     private static final Speed instance = new Speed();
