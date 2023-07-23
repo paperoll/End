@@ -6,14 +6,16 @@ import me.ht9.end.feature.module.annotation.Description;
 import me.ht9.end.mixin.accessors.IMinecraft;
 import me.ht9.end.util.NetworkUtils;
 import me.ht9.end.util.Timer;
+import net.minecraft.src.Packet10Flying;
 import net.minecraft.src.Packet19EntityAction;
+import org.lwjgl.input.Keyboard;
 
 @Description(value = "Move faster.")
 public class Speed extends Module
 {
     private static final Speed instance = new Speed();
 
-    private Timer timer = new Timer();
+    private final Timer timer = new Timer();
 
     @Override
     public void onUpdate(UpdateEvent event)
@@ -21,17 +23,9 @@ public class Speed extends Module
         ((IMinecraft) mc).getTimer().timerSpeed = 100.0f;
         mc.thePlayer.stepHeight = 1.0f;
         event.setOnGround(true);
-        if (timer.hasReached(450))
+        if (timer.hasReached(450, true))
         {
-            for (int i = 0; i < 2; i++)
-            {
-//                event.setPacketX(0.4723658827582);
-//                event.setPacketY(0.4723658827582);
-//                event.setStance(1.4723658827582);
-//                event.setPacketZ(0.4723658827582);
-            }
             NetworkUtils.dispatchPacket(new Packet19EntityAction(mc.thePlayer, 3));
-            timer.reset();
         }
     }
 

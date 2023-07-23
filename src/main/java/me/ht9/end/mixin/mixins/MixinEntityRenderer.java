@@ -187,14 +187,14 @@ public abstract class MixinEntityRenderer implements Globals
         GL11.glColorMask(true, true, true, false);
     }
 
-    @Inject(method = "setupFog", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "setupFog", at = @At(value = "TAIL"), cancellable = true)
     public void setupFog(int startCoords, float partialTicks, CallbackInfo ci)
     {
         SetupFogEvent event = new SetupFogEvent();
         End.bus().post(event);
         if (event.cancelled())
         {
-            ci.cancel();
+            GL11.glFogi(2916, 9729);
         }
     }
 }

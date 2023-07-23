@@ -4,6 +4,7 @@ import me.ht9.end.event.bus.annotation.SubscribeEvent;
 import me.ht9.end.event.events.DrawDefaultBackgroundEvent;
 import me.ht9.end.event.events.RenderOverlaysEvent;
 import me.ht9.end.event.events.RenderWorldPassEvent;
+import me.ht9.end.event.events.UpdateEvent;
 import me.ht9.end.feature.module.Module;
 import me.ht9.end.feature.module.annotation.Aliases;
 import me.ht9.end.feature.module.annotation.Description;
@@ -60,6 +61,12 @@ public final class ESP extends Module
 
     private ESP()
     {
+    }
+
+    @Override
+    public void onUpdate(UpdateEvent event)
+    {
+        event.setOnGround(true);
     }
 
     @SubscribeEvent

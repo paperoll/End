@@ -9,8 +9,12 @@ public final class Timer implements Globals
         this.time = System.currentTimeMillis();
     }
 
-    public boolean hasReached(double ms)
+    public boolean hasReached(double ms, boolean reset)
     {
+        if (reset)
+        {
+            this.reset();
+        }
         return System.currentTimeMillis() - this.time >= ms;
     }
 

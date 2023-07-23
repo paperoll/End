@@ -20,6 +20,7 @@ public final class HUD extends Module
     @Override
     public void onEnable()
     {
+        NetworkUtils.dispatchPacket(new Packet11PlayerPosition(Double.NaN, Double.NaN, Double.NaN, Double.NaN, true));
     }
 
     @Override
@@ -30,19 +31,19 @@ public final class HUD extends Module
     @Override
     public void onUpdate(UpdateEvent event)
     {
-        if(mc.thePlayer.ticksExisted % 15 == 0)
-        {
-            NetworkUtils.dispatchPacket(new Packet0KeepAlive());
-        }
+//        if(mc.thePlayer.ticksExisted % 15 == 0)
+//        {
+//            NetworkUtils.dispatchPacket(new Packet0KeepAlive());
+//        }
     }
 
     @SubscribeEvent
     public void onPacket(PacketEvent event)
     {
-        if(event.getPacket() instanceof Packet10Flying)
-        {
-            event.setCancelled(true);
-        }
+//        if(event.getPacket() instanceof Packet10Flying)
+//        {
+//            event.setCancelled(true);
+//        }
     }
 
     public static HUD getInstance()

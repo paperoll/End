@@ -46,7 +46,7 @@ public class TrueSight extends Module
     {
         if (this.noFog.getValue())
         {
-            //event.setCancelled(true);
+            event.setCancelled(true);
         }
     }
 
