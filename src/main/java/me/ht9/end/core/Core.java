@@ -12,6 +12,7 @@ import me.ht9.end.feature.module.exploit.nofall.NoFall;
 import me.ht9.end.feature.module.misc.antiaim.AntiAim;
 import me.ht9.end.feature.module.misc.freecam.Freecam;
 import me.ht9.end.feature.module.misc.norotate.NoRotate;
+import me.ht9.end.feature.module.movement.pvpspeed.PVPSpeed;
 import me.ht9.end.feature.module.movement.speed.Speed;
 import me.ht9.end.feature.module.render.esp.ESP;
 import me.ht9.end.feature.module.render.truesight.TrueSight;
@@ -34,16 +35,17 @@ public final class  Core implements Globals
         ESP.getInstance().enable();
         NoFall.getInstance().enable();
         NoRotate.getInstance().enable();
-        InstantMine.getInstance().enable();
         TrueSight.getInstance().enable();
         Velocity.getInstance().enable();
         ArrayList.getInstance().enable();
         Aura.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_R, Bind.BindType.KEYBOARD);
+        InstantMine.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_I, Bind.BindType.KEYBOARD);
         Freecam.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_G, Bind.BindType.KEYBOARD);
         HUD.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_U, Bind.BindType.KEYBOARD);
-        AntiAim.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_V, Bind.BindType.KEYBOARD);
+        AntiAim.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_N, Bind.BindType.KEYBOARD);
         Crasher.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_C, Bind.BindType.KEYBOARD);
         Speed.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_Z, Bind.BindType.KEYBOARD);
+        PVPSpeed.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_V, Bind.BindType.KEYBOARD);
         //FileUtils.loadModules(FileUtils.MODULES_FILE);
         //FileUtils.loadClickGUI();
     }

@@ -14,6 +14,7 @@ import me.ht9.end.feature.module.exploit.nofall.NoFall;
 import me.ht9.end.feature.module.misc.antiaim.AntiAim;
 import me.ht9.end.feature.module.misc.freecam.Freecam;
 import me.ht9.end.feature.module.misc.norotate.NoRotate;
+import me.ht9.end.feature.module.movement.pvpspeed.PVPSpeed;
 import me.ht9.end.feature.module.movement.speed.Speed;
 import me.ht9.end.feature.module.render.esp.ESP;
 import me.ht9.end.feature.module.render.truesight.TrueSight;
@@ -57,6 +58,7 @@ public final class Registries
         this.modules.add(NoFall.getInstance());
         // Movement
         this.modules.add(Speed.getInstance());
+        this.modules.add(PVPSpeed.getInstance());
         // Render
         this.modules.add(ESP.getInstance());
         this.modules.add(TrueSight.getInstance());
