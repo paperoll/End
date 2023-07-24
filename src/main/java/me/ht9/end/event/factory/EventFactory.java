@@ -4,6 +4,7 @@ import me.ht9.end.End;
 import me.ht9.end.core.Registries;
 import me.ht9.end.event.bus.annotation.SubscribeEvent;
 import me.ht9.end.event.events.InputEvent;
+import me.ht9.end.event.events.RenderGameOverlayEvent;
 import me.ht9.end.event.events.RenderWorldPassEvent;
 import me.ht9.end.event.events.UpdateEvent;
 import me.ht9.end.feature.module.Module;
@@ -62,17 +63,17 @@ public final class EventFactory implements Globals
             }
         }
 
-//        @SubscribeEvent
-//        public void onRenderGameOverlayEvent$Text(RenderGameOverlayEvent.Text event)
-//        {
-//            Registries.getInstance().getModules().forEach(module ->
-//            {
-//                if (module.isEnabled())
-//                {
-//                    module.onRender2d(event.partialTicks);
-//                }
-//            });
-//        }
+        @SubscribeEvent
+        public void onRenderGameOverlayEvent$Text(RenderGameOverlayEvent.Text event)
+        {
+            Registries.getInstance().getModules().forEach(module ->
+            {
+                if (module.isEnabled())
+                {
+                    module.onRender2d(event.getPartialTicks());
+                }
+            });
+        }
 
         @SubscribeEvent
         public void onRenderWorldPass(RenderWorldPassEvent event)

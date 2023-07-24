@@ -22,26 +22,27 @@ public class ArrayList extends Module
     @Override
     public void onRender2d(float renderPartialTicks)
     {
-        for (Module module : Registries.getInstance().getModules())
-        {
-            if (module.getCategory() != Category.Hidden)
-            {
-                boolean contains = false;
-                for (ArrayListModule arrayListModule : this.renderingMods)
-                {
-                    if (arrayListModule.module.equals(module))
-                    {
-                        contains = true;
-                        break;
-                    }
-                }
-                if (module.isEnabled() && module.getDrawn().getValue() && !contains)
-                {
-                    mc.fontRenderer.drawStringWithShadow(module.getName(), 4, 14, -1);
-                    this.renderingMods.add(new ArrayListModule(module, System.currentTimeMillis()));
-                }
-            }
-        }
+        mc.fontRenderer.drawStringWithShadow("End", 4, 14, -1);
+//        for (Module module : Registries.getInstance().getModules())
+//        {
+//            if (module.getCategory() != Category.Hidden)
+//            {
+//                boolean contains = false;
+//                for (ArrayListModule arrayListModule : this.renderingMods)
+//                {
+//                    if (arrayListModule.module.equals(module))
+//                    {
+//                        contains = true;
+//                        break;
+//                    }
+//                }
+//                if (module.isEnabled() && module.getDrawn().getValue() && !contains)
+//                {
+//                    mc.fontRenderer.drawStringWithShadow(module.getName(), 4, 14, -1);
+//                    this.renderingMods.add(new ArrayListModule(module, System.currentTimeMillis()));
+//                }
+//            }
+//        }
     }
 
     @SubscribeEvent

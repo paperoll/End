@@ -35,9 +35,12 @@ public class Aura extends Module
             {
                 if (mc.theWorld.loadedEntityList.get(i) != mc.thePlayer)
                 {
-                    if (mc.thePlayer.getDistanceToEntity((Entity) mc.theWorld.loadedEntityList.get(i)) <= this.range.getValue())
+                    if (mc.thePlayer.ticksExisted % 10 == 0)
                     {
-                        mc.playerController.method_1719(mc.thePlayer, (Entity) mc.theWorld.loadedEntityList.get(i));
+                        if (mc.thePlayer.getDistanceToEntity((Entity) mc.theWorld.loadedEntityList.get(i)) <= this.range.getValue())
+                        {
+                            mc.playerController.method_1719(mc.thePlayer, (Entity) mc.theWorld.loadedEntityList.get(i));
+                        }
                     }
                 }
             }

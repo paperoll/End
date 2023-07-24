@@ -1,5 +1,8 @@
 package me.ht9.end.mixin.mixins;
 
+import me.ht9.end.End;
+import me.ht9.end.event.events.DrawDefaultBackgroundEvent;
+import me.ht9.end.event.events.RenderGameOverlayEvent;
 import me.ht9.end.util.Globals;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.*;
@@ -16,9 +19,18 @@ import java.awt.*;
 @Mixin(value = GuiIngame.class)
 public abstract class MixinGuiIngame implements Globals
 {
-    @Inject(method = "renderGameOverlay", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/EntityRenderer;method_1843()V"), cancellable = true)
-    public void renderGameOverlay$method_1843(float flag, boolean i, int j, int par4, CallbackInfo ci)
+    private RenderGameOverlayEvent eventParent;
+
+    @Inject(method = "renderGameOverlay", at = @At(value = "HEAD"), cancellable = true)
+    public void renderGameOverlay(float f, boolean flag, int i, int j, CallbackInfo ci)
     {
-        //ci.cancel();
+        ScaledResolution var5 = null;
+        eventParent = new RenderGameOverlayEvent(f, var5);
+    }
+
+    @Inject(method = "renderGameOverlay", at = @At(value = "TAIL"), cancellable = true)
+    public void renderText(float f, boolean flag, int i, int j, CallbackInfo ci)
+    {
+        End.bus().post(new RenderGameOverlayEvent.Text(eventParent));
     }
 }
