@@ -1,11 +1,8 @@
 package me.ht9.end.mixin.mixins;
 
 import me.ht9.end.End;
-import me.ht9.end.event.events.BlockDamageProgressEvent;
 import me.ht9.end.event.events.BlockHitDelayEvent;
 import me.ht9.end.event.events.PlayerDamageBlockEvent;
-import net.minecraft.src.Block;
-import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.PlayerControllerMP;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,18 +29,6 @@ public final class MixinPlayerControllerMP
                 ci.cancel();
             }
         }
-    }
-
-    @Redirect(method = "sendBlockRemoving", at = @At(value = "INVOKE", target = "Lnet/minecraft/src/Block;blockStrength(Lnet/minecraft/src/EntityPlayer;)F"))
-    public float getPlayerRelativeBlockHardness(Block instance, EntityPlayer entityPlayer)
-    {
-        BlockDamageProgressEvent event = new BlockDamageProgressEvent(instance.blockStrength(entityPlayer));
-        End.bus().post(event);
-        if (event.cancelled())
-        {
-            return event.getProgress();
-        }
-        return instance.blockStrength(entityPlayer);
     }
 
     @Redirect(method = "sendBlockRemoving", at = @At(value = "FIELD", target = "Lnet/minecraft/src/PlayerControllerMP;blockHitDelay:I", ordinal = 2))

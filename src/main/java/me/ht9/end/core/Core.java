@@ -7,6 +7,7 @@ import me.ht9.end.feature.module.client.hud.HUD;
 import me.ht9.end.feature.module.combat.aura.Aura;
 import me.ht9.end.feature.module.combat.velocity.Velocity;
 import me.ht9.end.feature.module.exploit.crasher.Crasher;
+import me.ht9.end.feature.module.exploit.instantmine.InstantMine;
 import me.ht9.end.feature.module.exploit.nofall.NoFall;
 import me.ht9.end.feature.module.misc.antiaim.AntiAim;
 import me.ht9.end.feature.module.misc.freecam.Freecam;
@@ -33,6 +34,7 @@ public final class  Core implements Globals
         ESP.getInstance().enable();
         NoFall.getInstance().enable();
         NoRotate.getInstance().enable();
+        InstantMine.getInstance().enable();
         TrueSight.getInstance().enable();
         Velocity.getInstance().enable();
         ArrayList.getInstance().enable();

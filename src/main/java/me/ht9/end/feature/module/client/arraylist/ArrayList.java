@@ -37,7 +37,7 @@ public class ArrayList extends Module
                 }
                 if (module.isEnabled() && module.getDrawn().getValue() && !contains)
                 {
-                    mc.fontRenderer.drawString(module.getName(), 4, 14, -1);
+                    mc.fontRenderer.drawStringWithShadow(module.getName(), 4, 14, -1);
                     this.renderingMods.add(new ArrayListModule(module, System.currentTimeMillis()));
                 }
             }
