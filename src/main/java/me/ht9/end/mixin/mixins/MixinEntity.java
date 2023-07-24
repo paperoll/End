@@ -3,6 +3,7 @@ package me.ht9.end.mixin.mixins;
 import me.ht9.end.End;
 import me.ht9.end.event.events.PlayerMoveEvent;
 import me.ht9.end.event.events.PushByEntityEvent;
+import me.ht9.end.event.events.PushByLiquidEvent;
 import me.ht9.end.util.Globals;
 import net.minecraft.src.*;
 import org.spongepowered.asm.mixin.Final;
@@ -11,6 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public abstract class MixinEntity implements Globals
@@ -48,6 +50,19 @@ public abstract class MixinEntity implements Globals
             ci.cancel();
         }
     }
+
+    @Inject(method = "handleWaterMovement", at = @At(value = "HEAD"), cancellable = true)
+    public void handleWaterMovement(CallbackInfoReturnable<Boolean> cir)
+    {
+        Entity $this = (Entity) (Object) this;
+        PushByLiquidEvent event = new PushByLiquidEvent($this);
+        End.bus().post(event);
+        if (event.cancelled())
+        {
+            cir.setReturnValue(false);
+        }
+    }
+
 
     @Inject(method = "moveEntity", at = @At("HEAD"), cancellable = true)
     public void moveEntity(double x, double y, double z, CallbackInfo ci)

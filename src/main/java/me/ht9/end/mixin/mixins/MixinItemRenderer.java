@@ -21,4 +21,16 @@ public class MixinItemRenderer
             ci.cancel();
         }
     }
+
+    @Inject(method = { "renderInsideOfBlock" }, at = { @At("HEAD") }, cancellable = true)
+    private void renderInsideOfBlock(float f, int i, CallbackInfo ci)
+    {
+        ci.cancel();
+    }
+
+    @Inject(method = { "renderFireInFirstPerson" }, at = { @At("HEAD") }, cancellable = true)
+    private void renderFireInFirstPerson(final float par1, final CallbackInfo ci)
+    {
+        ci.cancel();
+    }
 }

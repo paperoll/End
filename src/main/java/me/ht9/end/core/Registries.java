@@ -6,9 +6,12 @@ import me.ht9.end.feature.module.Module;
 import me.ht9.end.feature.module.binding.Bind;
 import me.ht9.end.feature.module.client.clickgui.ClickGui;
 import me.ht9.end.feature.module.client.hud.HUD;
+import me.ht9.end.feature.module.combat.aura.Aura;
+import me.ht9.end.feature.module.combat.velocity.Velocity;
 import me.ht9.end.feature.module.exploit.crasher.Crasher;
 import me.ht9.end.feature.module.exploit.nofall.NoFall;
 import me.ht9.end.feature.module.misc.antiaim.AntiAim;
+import me.ht9.end.feature.module.misc.freecam.Freecam;
 import me.ht9.end.feature.module.misc.norotate.NoRotate;
 import me.ht9.end.feature.module.movement.speed.Speed;
 import me.ht9.end.feature.module.render.esp.ESP;
@@ -26,7 +29,7 @@ public final class Registries
 {
     private static final Registries instance = new Registries();
 
-    private final Registry<Module> modules = new Registry<>();
+    private static final List<Module> modules = new ArrayList<>();
     private final Registry<Bind> binds = new Registry<>();
 
     private Registries()
@@ -37,20 +40,24 @@ public final class Registries
     public void init() {
         // Client
 //        this.modules.registerFeature(ClickGui.getInstance());
-        this.modules.registerFeature(HUD.getInstance());
+        this.modules.add(HUD.getInstance());
+        this.modules.add(me.ht9.end.feature.module.client.arraylist.ArrayList.getInstance());
         // Combat
+        this.modules.add(Aura.getInstance());
+        this.modules.add(Velocity.getInstance());
 
         // Misc
-        this.modules.registerFeature(AntiAim.getInstance());
-        this.modules.registerFeature(NoFall.getInstance());
-        this.modules.registerFeature(NoRotate.getInstance());
+        this.modules.add(AntiAim.getInstance());
+        this.modules.add(Freecam.getInstance());
+        this.modules.add(NoRotate.getInstance());
         // Exploit
-        this.modules.registerFeature(Crasher.getInstance());
+        this.modules.add(Crasher.getInstance());
+        this.modules.add(NoFall.getInstance());
         // Movement
-        this.modules.registerFeature(Speed.getInstance());
+        this.modules.add(Speed.getInstance());
         // Render
-        this.modules.registerFeature(ESP.getInstance());
-        this.modules.registerFeature(TrueSight.getInstance());
+        this.modules.add(ESP.getInstance());
+        this.modules.add(TrueSight.getInstance());
 
         this.modules.forEach(module -> {
             for (Field field : module.getClass().getDeclaredFields()) {
@@ -69,10 +76,10 @@ public final class Registries
         });
     }
 
-    public Registry<Module> getModules() {
+    public List<Module> getModules()
+    {
         return modules;
     }
-
     public Registry<Bind> getBinds() {
         return this.binds;
     }

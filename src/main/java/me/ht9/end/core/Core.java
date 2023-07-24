@@ -2,10 +2,14 @@ package me.ht9.end.core;
 
 import me.ht9.end.event.factory.EventFactory;
 import me.ht9.end.feature.module.binding.Bind;
+import me.ht9.end.feature.module.client.arraylist.ArrayList;
 import me.ht9.end.feature.module.client.hud.HUD;
+import me.ht9.end.feature.module.combat.aura.Aura;
+import me.ht9.end.feature.module.combat.velocity.Velocity;
 import me.ht9.end.feature.module.exploit.crasher.Crasher;
 import me.ht9.end.feature.module.exploit.nofall.NoFall;
 import me.ht9.end.feature.module.misc.antiaim.AntiAim;
+import me.ht9.end.feature.module.misc.freecam.Freecam;
 import me.ht9.end.feature.module.misc.norotate.NoRotate;
 import me.ht9.end.feature.module.movement.speed.Speed;
 import me.ht9.end.feature.module.render.esp.ESP;
@@ -30,7 +34,11 @@ public final class  Core implements Globals
         NoFall.getInstance().enable();
         NoRotate.getInstance().enable();
         TrueSight.getInstance().enable();
-        HUD.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_G, Bind.BindType.KEYBOARD);
+        Velocity.getInstance().enable();
+        ArrayList.getInstance().enable();
+        Aura.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_R, Bind.BindType.KEYBOARD);
+        Freecam.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_G, Bind.BindType.KEYBOARD);
+        HUD.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_U, Bind.BindType.KEYBOARD);
         AntiAim.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_V, Bind.BindType.KEYBOARD);
         Crasher.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_C, Bind.BindType.KEYBOARD);
         Speed.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_Z, Bind.BindType.KEYBOARD);
