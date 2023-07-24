@@ -24,6 +24,8 @@ public class Aura extends Module
 
     private Timer timer = new Timer();
 
+    private Entity target;
+
     @Override
     public void onUpdate(UpdateEvent event)
     {
@@ -31,14 +33,19 @@ public class Aura extends Module
         {
             if (mc.theWorld.loadedEntityList.get(i) instanceof EntityPlayer && this.players.getValue() || mc.theWorld.loadedEntityList.get(i) instanceof EntityAnimal && this.animals.getValue() || mc.theWorld.loadedEntityList.get(i) instanceof EntityMob && this.monsters.getValue())
             {
-                if (this.timer.hasReached(((double) 1000 / this.aps.getValue()), true))
-                {
+                if (mc.theWorld.loadedEntityList.get(i) == mc.thePlayer) return;
+//                if (this.timer.hasReached( 500, true))
+//                {
                     if (mc.thePlayer.getDistanceToEntity((Entity) mc.theWorld.loadedEntityList.get(i)) <= this.range.getValue())
                     {
-                        mc.playerController.method_1714(mc.thePlayer, (Entity) mc.theWorld.loadedEntityList.get(i));
+                        mc.playerController.method_1719(mc.thePlayer, (Entity) mc.theWorld.loadedEntityList.get(i));
                     }
-                }
+//                }
             }
+        }
+        if(target != null && mc.thePlayer.getDistanceToEntity(target) > this.range.getValue())
+        {
+            target = null;
         }
     }
 
