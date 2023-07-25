@@ -35,7 +35,7 @@ public class Aura extends Module
             {
                 if (mc.theWorld.loadedEntityList.get(i) != mc.thePlayer)
                 {
-                    if (mc.thePlayer.ticksExisted % 10 == 0)
+                    if (mc.thePlayer.ticksExisted % 8 == 0)
                     {
                         if (mc.thePlayer.getDistanceToEntity((Entity) mc.theWorld.loadedEntityList.get(i)) <= this.range.getValue())
                         {

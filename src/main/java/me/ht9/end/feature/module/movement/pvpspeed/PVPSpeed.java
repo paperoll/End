@@ -18,10 +18,10 @@ public class PVPSpeed extends Module
     @Override
     public void onUpdate(UpdateEvent event)
     {
-        ((IMinecraft) mc).getTimer().timerSpeed = 2.5f;
+        ((IMinecraft) mc).getTimer().timerSpeed = 1.25f;
         mc.thePlayer.stepHeight = 1.0f;
         event.setOnGround(true);
-        if (timer.hasReached(750, true))
+        if (timer.hasReached(1100, true))
         {
             NetworkUtils.dispatchPacket(new Packet19EntityAction(mc.thePlayer, 3));
         }
