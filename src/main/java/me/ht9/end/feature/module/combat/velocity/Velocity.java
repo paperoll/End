@@ -61,7 +61,7 @@ public class Velocity extends Module
         {
             if (event.getPushee().equals(mc.thePlayer))
             {
-                event.setCancelled(true);
+                //event.setCancelled(true);
             }
         }
     }
