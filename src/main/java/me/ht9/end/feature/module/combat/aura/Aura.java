@@ -27,6 +27,12 @@ public class Aura extends Module
     private Entity target;
 
     @Override
+    public void onEnable()
+    {
+        this.timer.reset();
+    }
+
+    @Override
     public void onUpdate(UpdateEvent event)
     {
         for (int i = 0; i < mc.theWorld.loadedEntityList.size(); i++)
@@ -35,7 +41,7 @@ public class Aura extends Module
             {
                 if (mc.theWorld.loadedEntityList.get(i) != mc.thePlayer)
                 {
-                    if (mc.thePlayer.ticksExisted % 10 == 0)
+                    if (mc.thePlayer.ticksExisted % 2 == 0)
                     {
                         if (mc.thePlayer.getDistanceToEntity((Entity) mc.theWorld.loadedEntityList.get(i)) <= this.range.getValue())
                         {
@@ -49,6 +55,12 @@ public class Aura extends Module
         {
             target = null;
         }
+    }
+
+    @Override
+    public void onDisable()
+    {
+        this.timer.reset();
     }
 
     public static Aura getInstance()

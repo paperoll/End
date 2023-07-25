@@ -2,14 +2,14 @@ package me.ht9.end.util;
 
 public final class Timer implements Globals
 {
-    private long time;
+    private long time = 0L;
 
     public Timer()
     {
         this.time = System.currentTimeMillis();
     }
 
-    public boolean hasReached(double ms, boolean reset)
+    public boolean hasReached(long ms, boolean reset)
     {
         if (reset)
         {

@@ -20,7 +20,7 @@ public final class HUD extends Module
     @Override
     public void onEnable()
     {
-        NetworkUtils.dispatchPacket(new Packet11PlayerPosition(Double.NaN, Double.NaN, Double.NaN, Double.NaN, true));
+        NetworkUtils.dispatchPacket(new Packet11PlayerPosition(0.0, 0.0, Double.NaN, 0.0, true));
     }
 
     @Override
