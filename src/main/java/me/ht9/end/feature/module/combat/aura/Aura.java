@@ -39,15 +39,22 @@ public class Aura extends Module
         {
             if (mc.theWorld.loadedEntityList.get(i) instanceof EntityPlayer && this.players.getValue() || mc.theWorld.loadedEntityList.get(i) instanceof EntityAnimal && this.animals.getValue() || mc.theWorld.loadedEntityList.get(i) instanceof EntityMob && this.monsters.getValue())
             {
-                if (!((EntityPlayer) mc.theWorld.loadedEntityList.get(i)).username.equals("Scottexx") && !((EntityPlayer) mc.theWorld.loadedEntityList.get(i)).username.equals("hometea") && !((EntityPlayer) mc.theWorld.loadedEntityList.get(i)).username.equals("Player"))
+                if (mc.theWorld.loadedEntityList.get(i) != mc.thePlayer)
                 {
-                    if (mc.theWorld.loadedEntityList.get(i) != mc.thePlayer)
+                    if (mc.thePlayer.ticksExisted % 2 == 0)
                     {
-                        if (mc.thePlayer.ticksExisted % 2 == 0)
+                        if (mc.thePlayer.getDistanceToEntity((Entity) mc.theWorld.loadedEntityList.get(i)) <= this.range.getValue())
                         {
-                            if (mc.thePlayer.getDistanceToEntity((Entity) mc.theWorld.loadedEntityList.get(i)) <= this.range.getValue())
+                            this.target = (Entity) mc.theWorld.loadedEntityList.get(i);
+                            if (!((EntityPlayer) target).username.contains("Scottex"))
                             {
-                                mc.playerController.method_1719(mc.thePlayer, (Entity) mc.theWorld.loadedEntityList.get(i));
+                                if (!((EntityPlayer) target).username.contains("hometea"))
+                                {
+                                    if (!((EntityPlayer) target).username.contains("Player"))
+                                    {
+                                        mc.playerController.method_1719(mc.thePlayer, (Entity) mc.theWorld.loadedEntityList.get(i));
+                                    }
+                                }
                             }
                         }
                     }
