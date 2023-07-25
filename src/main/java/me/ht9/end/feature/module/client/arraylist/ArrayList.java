@@ -3,12 +3,15 @@ package me.ht9.end.feature.module.client.arraylist;
 import me.ht9.end.core.Registries;
 import me.ht9.end.event.bus.annotation.SubscribeEvent;
 import me.ht9.end.event.events.ModuleEvent;
+import me.ht9.end.event.events.RenderGameOverlayEvent;
 import me.ht9.end.event.events.UpdateEvent;
 import me.ht9.end.feature.module.Module;
 import me.ht9.end.feature.module.annotation.Description;
 import me.ht9.end.util.RenderUtils;
+import net.minecraft.src.ScaledResolution;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -17,126 +20,27 @@ public class ArrayList extends Module
 {
     private static final ArrayList instance = new ArrayList();
 
-    private final List<ArrayListModule> renderingMods = new java.util.ArrayList<>();
-
     @Override
-    public void onRender2d(float renderPartialTicks)
+    public void onRender2d(float partialTicks)
     {
         mc.fontRenderer.drawStringWithShadow("End", 4, 14, -1);
-//        for (Module module : Registries.getInstance().getModules())
-//        {
-//            if (module.getCategory() != Category.Hidden)
-//            {
-//                boolean contains = false;
-//                for (ArrayListModule arrayListModule : this.renderingMods)
-//                {
-//                    if (arrayListModule.module.equals(module))
-//                    {
-//                        contains = true;
-//                        break;
-//                    }
-//                }
-//                if (module.isEnabled() && module.getDrawn().getValue() && !contains)
-//                {
-//                    mc.fontRenderer.drawStringWithShadow(module.getName(), 4, 14, -1);
-//                    this.renderingMods.add(new ArrayListModule(module, System.currentTimeMillis()));
-//                }
-//            }
-//        }
-    }
+        int yOff = 0;
 
-    @SubscribeEvent
-    public void onModule(ModuleEvent event)
-    {
-        Module module = event.getModule();
-        long toggleTime = System.currentTimeMillis();
-        if (module.getCategory().equals(Category.Hidden)) return;
-        switch (event.getType())
+        ScaledResolution scaledResolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+
+        for (Module module : Registries.getInstance().getModules())
         {
-            case DRAW:
-            case ENABLE:
+            if (module.isEnabled())
             {
-                if (module.getDrawn().getValue())
-                {
-                    for (ArrayListModule arrayListModule : this.renderingMods)
-                    {
-                        if (arrayListModule.module.equals(module))
-                        {
-                            arrayListModule.toggleTime = toggleTime;
-                            arrayListModule.lastProgress = arrayListModule.progress;
-                            return;
-                        }
-                    }
-                    ArrayListModule arrayListModule = new ArrayListModule(module, toggleTime);
-                    this.renderingMods.add(arrayListModule);
-                    arrayListModule.lastProgress = -arrayListModule.getStringWidth();
-                }
-                break;
-            }
-            case UNDRAW:
-            case DISABLE:
-            {
-                for (ArrayListModule arrayListModule : this.renderingMods)
-                {
-                    if (arrayListModule.module.equals(module))
-                    {
-                        arrayListModule.toggleTime = toggleTime;
-                        arrayListModule.lastProgress = arrayListModule.progress;
-                    }
-                }
-                break;
+                mc.fontRenderer.drawStringWithShadow(module.getName(), scaledResolution.getScaledWidth() - mc.fontRenderer.getStringWidth(module.getName()), 2 + yOff * 9, -1);
+                ++yOff;
             }
         }
-    }
 
-    @Override
-    public void onDisable()
-    {
-        this.renderingMods.clear();
     }
 
     public static ArrayList getInstance()
     {
         return instance;
-    }
-
-    private static final class ArrayListModule
-    {
-        private final Module module;
-        private long toggleTime;
-        private float progress;
-        private float lastProgress;
-
-        private ArrayListModule(Module module, long toggleTime)
-        {
-            this.module = module;
-            this.toggleTime = toggleTime;
-            this.lastProgress = -this.getStringWidth();
-            this.progress = -this.getStringWidth();
-        }
-
-        private boolean hasArrayListInfo()
-        {
-            return !StringUtils.isEmpty(this.module.getArrayListInfo());
-        }
-
-        private float getStringWidth()
-        {
-            String fullName = this.getFullName();
-            return mc.fontRenderer.getStringWidth(fullName);
-        }
-
-        private String getFullName()
-        {
-            StringBuilder builder = new StringBuilder();
-            builder.append(this.module.getName());
-            if (this.hasArrayListInfo())
-            {
-                builder.append(" [");
-                builder.append(this.module.getArrayListInfo());
-                builder.append("]");
-            }
-            return builder.toString();
-        }
     }
 }
