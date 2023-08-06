@@ -5,6 +5,8 @@ import me.ht9.end.event.events.PacketEvent;
 import me.ht9.end.util.Globals;
 import net.minecraft.src.NetworkManager;
 import net.minecraft.src.Packet;
+import net.minecraft.src.Packet101CloseWindow;
+import net.minecraft.src.Packet106Transaction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

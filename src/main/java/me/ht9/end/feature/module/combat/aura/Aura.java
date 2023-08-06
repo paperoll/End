@@ -1,5 +1,6 @@
 package me.ht9.end.feature.module.combat.aura;
 
+import me.ht9.end.event.bus.annotation.SubscribeEvent;
 import me.ht9.end.event.events.UpdateEvent;
 import me.ht9.end.feature.module.Module;
 import me.ht9.end.feature.module.annotation.Description;
@@ -26,13 +27,18 @@ public class Aura extends Module
 
     private Entity target;
 
+    private Aura()
+    {
+        this.setArrayListInfo(() -> String.valueOf(target));
+    }
+
     @Override
     public void onEnable()
     {
         this.timer.reset();
     }
 
-    @Override
+    @SubscribeEvent
     public void onUpdate(UpdateEvent event)
     {
         for (int i = 0; i < mc.theWorld.loadedEntityList.size(); i++)
@@ -46,7 +52,7 @@ public class Aura extends Module
                         if (mc.thePlayer.getDistanceToEntity((Entity) mc.theWorld.loadedEntityList.get(i)) <= this.range.getValue())
                         {
                             this.target = (Entity) mc.theWorld.loadedEntityList.get(i);
-                            if (!((EntityPlayer) target).username.contains("Scottex"))
+                            if (!((EntityPlayer) target).username.contains("Scottexx"))
                             {
                                 if (!((EntityPlayer) target).username.contains("hometea"))
                                 {

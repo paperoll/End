@@ -60,10 +60,6 @@ public abstract class Module extends Feature implements Globals
     {
     }
 
-    public void onUpdate(UpdateEvent event)
-    {
-    }
-
     public void onRender2d(float partialTicks)
     {
     }

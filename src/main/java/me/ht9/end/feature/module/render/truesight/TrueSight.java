@@ -23,7 +23,7 @@ public class TrueSight extends Module
     {
     }
 
-    @Override
+    @SubscribeEvent
     public void onUpdate(UpdateEvent event)
     {
         if (this.fullBright.getValue())

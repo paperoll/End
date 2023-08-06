@@ -44,26 +44,6 @@ public final class EventFactory implements Globals
 //        }
 
         @SubscribeEvent
-        public void onUpdate(UpdateEvent event)
-        {
-            Registries.getInstance().getModules().sort(Comparator.comparingInt(m -> ((Module) m).getUpdatePriority()));
-            Registries.getInstance().getModules().forEach(module ->
-            {
-                if (module.isEnabled())
-                {
-                    module.onUpdate(event);
-                }
-            });
-
-            if (event.getStage() == UpdateEvent.Stage.PRE)
-            {
-                mc.thePlayer.rotationYaw = event.getYaw();
-                mc.thePlayer.renderYawOffset = event.getYaw();
-                this.rotationRenderPitch = event.getPitch();
-            }
-        }
-
-        @SubscribeEvent
         public void onRenderGameOverlayEvent$Text(RenderGameOverlayEvent.Text event)
         {
             Registries.getInstance().getModules().forEach(module ->

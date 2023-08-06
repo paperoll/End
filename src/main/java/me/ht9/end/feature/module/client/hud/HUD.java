@@ -11,6 +11,7 @@ import net.minecraft.src.*;
 @Description(value = "Render client information on the screen.")
 public final class HUD extends Module
 {
+    // this was literally just a husk module to test stuff
     private static final HUD instance = new HUD();
 
     private HUD()
@@ -20,7 +21,6 @@ public final class HUD extends Module
     @Override
     public void onEnable()
     {
-        NetworkUtils.dispatchPacket(new Packet11PlayerPosition(0.0, Double.NaN, 0.0, 0.0, true));
     }
 
     @Override
@@ -28,12 +28,12 @@ public final class HUD extends Module
     {
     }
 
-    @Override
+    @SubscribeEvent
     public void onUpdate(UpdateEvent event)
     {
         if(mc.thePlayer.ticksExisted % 15 == 0)
         {
-            //NetworkUtils.dispatchPacket(new Packet0KeepAlive());
+            NetworkUtils.dispatchPacket(new Packet0KeepAlive());
         }
     }
 
@@ -42,7 +42,7 @@ public final class HUD extends Module
     {
         if(event.getPacket() instanceof Packet10Flying)
         {
-            //event.setCancelled(true);
+            event.setCancelled(true);
         }
     }
 

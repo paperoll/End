@@ -26,19 +26,22 @@ public class Velocity extends Module
     @SubscribeEvent
     public void onPacket(PacketEvent event)
     {
-        if (event.getPacket() instanceof Packet28EntityVelocity)
+        if (event.isServerBound())
         {
-            Packet28EntityVelocity packet = (Packet28EntityVelocity) event.getPacket();
-            if (packet.entityId == mc.thePlayer.entityId)
+            if (event.getPacket() instanceof Packet28EntityVelocity)
             {
+                Packet28EntityVelocity packet = (Packet28EntityVelocity) event.getPacket();
+                if (packet.entityId == mc.thePlayer.entityId)
+                {
+                    event.setCancelled(true);
+                }
+            } else if (event.getPacket() instanceof Packet60Explosion)
+            {
+                Packet60Explosion packet = (Packet60Explosion) event.getPacket();
                 event.setCancelled(true);
+                Explosion explosion = new Explosion(mc.theWorld, null, packet.explosionX, packet.explosionY, packet.explosionZ, packet.explosionSize);
+                explosion.doExplosionB(true);
             }
-        } else if (event.getPacket() instanceof Packet60Explosion)
-        {
-            Packet60Explosion packet = (Packet60Explosion) event.getPacket();
-            event.setCancelled(true);
-            Explosion explosion = new Explosion(mc.theWorld, null, packet.explosionX, packet.explosionY, packet.explosionZ, packet.explosionSize);
-            explosion.doExplosionB(true);
         }
     }
 

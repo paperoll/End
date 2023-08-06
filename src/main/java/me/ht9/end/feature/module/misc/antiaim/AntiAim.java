@@ -25,7 +25,7 @@ public final class AntiAim extends Module
     {
     }
 
-    @Override
+    @SubscribeEvent
     public void onUpdate(UpdateEvent event)
     {
         pitch = (pitch + increment.getValue() + 540.0f) % 360.0f - 180.0f;

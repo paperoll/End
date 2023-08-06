@@ -326,31 +326,6 @@ public final class ESP extends Module
         mc.effectRenderer.renderParticles(mc.thePlayer, partialTicks);
     }
 
-    public void disableLightmap()
-    {
-        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-        GlStateManager.disableTexture2D();
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-    }
-
-    public void enableLightmap()
-    {
-        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-        GlStateManager.matrixMode(5890);
-        GlStateManager.loadIdentity();
-        float f = 0.00390625F;
-        GlStateManager.scale(0.00390625F, 0.00390625F, 0.00390625F);
-        GlStateManager.translate(8.0F, 8.0F, 8.0F);
-        GlStateManager.matrixMode(5888);
-        GlStateManager.glTexParameteri(3553, 10241, 9729);
-        GlStateManager.glTexParameteri(3553, 10240, 9729);
-        GlStateManager.glTexParameteri(3553, 10242, 10496);
-        GlStateManager.glTexParameteri(3553, 10243, 10496);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.enableTexture2D();
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-    }
-
     public void renderEntityStatic(Entity entityIn, float partialTicks)
     {
         if (entityIn.ticksExisted == 0)

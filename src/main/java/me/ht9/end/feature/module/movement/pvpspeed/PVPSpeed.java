@@ -17,7 +17,7 @@ public class PVPSpeed extends Module
 
     private final Timer timer = new Timer();
 
-    @Override
+    @SubscribeEvent
     public void onUpdate(UpdateEvent event)
     {
         ((IMinecraft) mc).getTimer().timerSpeed = 3f;

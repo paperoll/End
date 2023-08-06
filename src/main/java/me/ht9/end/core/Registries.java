@@ -11,9 +11,11 @@ import me.ht9.end.feature.module.combat.velocity.Velocity;
 import me.ht9.end.feature.module.exploit.crasher.Crasher;
 import me.ht9.end.feature.module.exploit.instantmine.InstantMine;
 import me.ht9.end.feature.module.exploit.nofall.NoFall;
+import me.ht9.end.feature.module.exploit.secretclose.SecretClose;
 import me.ht9.end.feature.module.misc.antiaim.AntiAim;
 import me.ht9.end.feature.module.misc.freecam.Freecam;
 import me.ht9.end.feature.module.misc.norotate.NoRotate;
+import me.ht9.end.feature.module.misc.nuker.Nuker;
 import me.ht9.end.feature.module.movement.pvpspeed.PVPSpeed;
 import me.ht9.end.feature.module.movement.speed.Speed;
 import me.ht9.end.feature.module.render.esp.ESP;
@@ -52,10 +54,12 @@ public final class Registries
         this.modules.add(AntiAim.getInstance());
         this.modules.add(Freecam.getInstance());
         this.modules.add(NoRotate.getInstance());
+        this.modules.add(Nuker.getInstance());
         // Exploit
         this.modules.add(Crasher.getInstance());
         this.modules.add(InstantMine.getInstance());
         this.modules.add(NoFall.getInstance());
+        this.modules.add(SecretClose.getInstance());
         // Movement
         this.modules.add(Speed.getInstance());
         this.modules.add(PVPSpeed.getInstance());

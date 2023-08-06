@@ -1,6 +1,7 @@
 package me.ht9.end.mixin.mixins;
 
 import me.ht9.end.feature.module.client.hud.HUD;
+import me.ht9.end.feature.module.exploit.secretclose.SecretClose;
 import me.ht9.end.mixin.accessors.IGuiChest;
 import me.ht9.end.util.InventoryUtils;
 import net.minecraft.client.Minecraft;
@@ -22,8 +23,6 @@ public class MixinGuiContainer
     @Shadow protected List controlList;
     @Shadow public int height;
     @Shadow public int width;
-    @Unique
-    private GuiButton button;
 
     @Inject(method = "initGui", at = @At("HEAD"))
     public void initGui(CallbackInfo ci)
@@ -33,7 +32,7 @@ public class MixinGuiContainer
             GuiChest chest = (GuiChest) mc.currentScreen;
             if (((IGuiChest) chest).getLowerChestInventory().getInvName().equals("Minecart"))
             {
-                controlList.add(this.button = new GuiButton(1000, width / 2 - 52, height / 4 - 45, 50, 20, "Steal"));
+                controlList.add(new GuiButton(1000, width / 2 - 52, height / 4 - 45, 50, 20, "Steal"));
                 controlList.add(new GuiButton(1001, width / 2 + 2, height / 4 - 45, 50, 20, "Store"));
             }
         }
@@ -47,9 +46,9 @@ public class MixinGuiContainer
             GuiChest chest = (GuiChest) mc.currentScreen;
             if (((IGuiChest) chest).getLowerChestInventory().getInvName().equals("Minecart"))
             {
-                if (this.button.id == 1000)
+                if (button.id == 1000)
                 {
-                    HUD.getInstance().enable();
+                    HUD.getInstance().toggle();
 //                    List<Slot> slots = new ArrayList<>();
 //                    int container = mc.thePlayer.inventorySlots.slots.size() - 36;
 //
@@ -69,9 +68,9 @@ public class MixinGuiContainer
 //                        mc.playerController.method_1708(chest.inventorySlots.windowId, -999, 0, false, mc.thePlayer);
 //                    }
 
-                } else if (this.button.id == 1001)
+                } else if (button.id == 1001)
                 {
-                    System.out.println("2");
+                    SecretClose.getInstance().toggle();
                 }
             }
         }

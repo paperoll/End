@@ -58,7 +58,7 @@ public class Freecam extends Module
         }
     }
 
-    @Override
+    @SubscribeEvent
     public void onUpdate(UpdateEvent event)
     {
         mc.thePlayer.noClip = true;

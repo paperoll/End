@@ -9,9 +9,11 @@ import me.ht9.end.feature.module.combat.velocity.Velocity;
 import me.ht9.end.feature.module.exploit.crasher.Crasher;
 import me.ht9.end.feature.module.exploit.instantmine.InstantMine;
 import me.ht9.end.feature.module.exploit.nofall.NoFall;
+import me.ht9.end.feature.module.exploit.secretclose.SecretClose;
 import me.ht9.end.feature.module.misc.antiaim.AntiAim;
 import me.ht9.end.feature.module.misc.freecam.Freecam;
 import me.ht9.end.feature.module.misc.norotate.NoRotate;
+import me.ht9.end.feature.module.misc.nuker.Nuker;
 import me.ht9.end.feature.module.movement.pvpspeed.PVPSpeed;
 import me.ht9.end.feature.module.movement.speed.Speed;
 import me.ht9.end.feature.module.render.esp.ESP;
@@ -42,10 +44,12 @@ public final class  Core implements Globals
         InstantMine.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_I, Bind.BindType.KEYBOARD);
         Freecam.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_G, Bind.BindType.KEYBOARD);
         HUD.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_U, Bind.BindType.KEYBOARD);
-        AntiAim.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_N, Bind.BindType.KEYBOARD);
+        Nuker.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_N, Bind.BindType.KEYBOARD);
+        AntiAim.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_P, Bind.BindType.KEYBOARD);
         Crasher.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_C, Bind.BindType.KEYBOARD);
         Speed.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_Z, Bind.BindType.KEYBOARD);
         PVPSpeed.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_V, Bind.BindType.KEYBOARD);
+        SecretClose.getInstance().getToggleBind().getValue().setKey(Keyboard.KEY_O, Bind.BindType.KEYBOARD);
         //FileUtils.loadModules(FileUtils.MODULES_FILE);
         //FileUtils.loadClickGUI();
     }
