@@ -9,7 +9,7 @@ import net.minecraft.src.Explosion;
 import net.minecraft.src.Packet28EntityVelocity;
 import net.minecraft.src.Packet60Explosion;
 
-@Description("knockback but no.")
+@Description("Knockback but no.")
 public class Velocity extends Module
 {
     private static final Velocity instance = new Velocity();
@@ -28,14 +28,14 @@ public class Velocity extends Module
     {
         if (event.isServerBound())
         {
-            if (event.getPacket() instanceof Packet28EntityVelocity)
+            if (event.getPacket().getPacketId() == 28)
             {
                 Packet28EntityVelocity packet = (Packet28EntityVelocity) event.getPacket();
                 if (packet.entityId == mc.thePlayer.entityId)
                 {
                     event.setCancelled(true);
                 }
-            } else if (event.getPacket() instanceof Packet60Explosion)
+            } else if (event.getPacket().getPacketId() == 60)
             {
                 Packet60Explosion packet = (Packet60Explosion) event.getPacket();
                 event.setCancelled(true);
@@ -65,6 +65,7 @@ public class Velocity extends Module
             if (event.getPushee().equals(mc.thePlayer))
             {
                 //event.setCancelled(true);
+                // i posted the event in the wrong place i cba to fix
             }
         }
     }
