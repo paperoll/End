@@ -4,11 +4,9 @@ import me.ht9.end.End;
 import me.ht9.end.feature.Feature;
 import me.ht9.end.feature.module.Module;
 import me.ht9.end.feature.module.binding.Bind;
-import me.ht9.end.feature.module.client.clickgui.ClickGui;
 import me.ht9.end.feature.module.client.hud.HUD;
 import me.ht9.end.feature.module.combat.aura.Aura;
 import me.ht9.end.feature.module.combat.velocity.Velocity;
-import me.ht9.end.feature.module.exploit.crasher.Crasher;
 import me.ht9.end.feature.module.exploit.instantmine.InstantMine;
 import me.ht9.end.feature.module.exploit.nofall.NoFall;
 import me.ht9.end.feature.module.exploit.secretclose.SecretClose;
@@ -56,7 +54,6 @@ public final class Registries
         this.modules.add(NoRotate.getInstance());
         this.modules.add(Nuker.getInstance());
         // Exploit
-        this.modules.add(Crasher.getInstance());
         this.modules.add(InstantMine.getInstance());
         this.modules.add(NoFall.getInstance());
         this.modules.add(SecretClose.getInstance());
